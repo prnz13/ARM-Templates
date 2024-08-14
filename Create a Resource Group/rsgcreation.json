@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+      {
+        "type": "Microsoft.Resources/resourceGroups",
+        "apiVersion": "2021-04-01",
+        "location": "[parameters('location')]",
+        "name": "[parameters('resourceGroupName')]"
+      }
+    ],
+    "parameters": {
+      "resourceGroupName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the resource group to create."
+        }
+      },
+      "location": {
+        "type": "string",
+        "metadata": {
+          "description": "The location where the resource group will be created."
+        }
+      }
+    }
+  }
+  
+  
