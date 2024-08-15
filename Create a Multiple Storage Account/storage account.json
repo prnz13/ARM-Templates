@@ -1,47 +1,26 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "storageAccountNamePrefix": {
-            "type": "string",
-            "metadata": {
-                "description": "Prefix for the storage account names."
-            }
-        },
-        "location": {
-            "type": "string",
-            "defaultValue": "[deployment().location]",
-            "metadata": {
-                "description": "Location for the storage accounts."
-            }
-        },
-        "skuName": {
-            "type": "string",
-            "defaultValue": "Standard_LRS",
-            "metadata": {
-                "description": "SKU name for the storage accounts."
-            }
-        }
-    },
+    "parameters": {},
     "functions": [],
     "variables": {},
     "resources": [
         {
-            "name": "[concat(parameters('storageAccountNamePrefix'), copyIndex(1))]",
+            "name": "[concat('storageaccountname',copyIndex(1))]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2023-04-01",
             "tags": {
-                "displayName": "[parameters('storageAccountNamePrefix')]"
+                "displayName": "storageaccountname"
             },
-            "location": "[parameters('location')]",
+            "location": "[deployment().location]",
             "kind": "StorageV2",
             "sku": {
-                "name": "[parameters('skuName')]",
+                "name": "Standard_LRS",
                 "tier": "Standard"
             },
             "copy": {
-                "name": "storagecopy",
-                "count": 3
+                "name":"storagecopy",
+                "count":3
             }
         }
     ],
