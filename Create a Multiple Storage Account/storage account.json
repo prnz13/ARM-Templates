@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "storageAccountNamePrefix":         {
+        "storageAccountNamePrefix": {
             "type": "string",
             "metadata": {
                 "description": "Prefix for the storage account names."
@@ -10,7 +10,7 @@
         },
         "location": {
             "type": "string",
-            "defaultValue": "central india",
+            "defaultValue": "[deployment().location]",
             "metadata": {
                 "description": "Location for the storage accounts."
             }

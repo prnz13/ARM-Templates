@@ -5,10 +5,7 @@
         "storageAccountNamePrefix": {
             "value": "storageaccountname"
         },
-        "location": {
-            "value": "central india"
-        },
-        "skuName": {
+         "skuName": {
             "value": "Standard_LRS"
         }
     }
