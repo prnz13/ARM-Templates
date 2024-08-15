@@ -26,7 +26,7 @@
     "resources": [
         {
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2023-03-01",
             "name": "[parameters('virtualMachines_VGUSPRDAPP04_name')]",
             "location": "northcentralus",
             "tags": {
@@ -46,14 +46,12 @@
                     "osDisk": {
                         "osType": "Windows",
                         "name": "[concat(parameters('virtualMachines_VGUSPRDAPP04_name'), '_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e')]",
-                        "createOption": "FromImage",
+                        "createOption": "Attach",
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "StandardSSD_LRS",
                             "id": "[parameters('disks_VGUSPRDAPP04_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e_externalid')]"
-                        },
-                        "deleteOption": "Delete",
-                        "diskSizeGB": 127
+                        }
                     },
                     "dataDisks": [
                         {
@@ -61,14 +59,10 @@
                             "name": "[concat(parameters('virtualMachines_VGUSPRDAPP04_name'), '_DataDisk_0')]",
                             "createOption": "Attach",
                             "caching": "ReadWrite",
-                            "writeAcceleratorEnabled": false,
                             "managedDisk": {
                                 "storageAccountType": "StandardSSD_LRS",
                                 "id": "[parameters('disks_VGUSPRDAPP04_DataDisk_0_externalid')]"
-                            },
-                            "deleteOption": "Detach",
-                            "diskSizeGB": 100,
-                            "toBeDetached": false
+                            }
                         }
                     ]
                 },
@@ -82,20 +76,13 @@
                             "patchMode": "AutomaticByOS",
                             "assessmentMode": "AutomaticByPlatform",
                             "enableHotpatching": false
-                        },
-                        "enableVMAgentPlatformUpdates": false
-                    },
-                    "secrets": [],
-                    "allowExtensionOperations": true,
-                    "requireGuestProvisionSignal": true
+                        }
+                    }
                 },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[parameters('networkInterfaces_vgusprdapp04811_externalid')]",
-                            "properties": {
-                                "deleteOption": "Detach"
-                            }
+                            "id": "[parameters('networkInterfaces_vgusprdapp04811_externalid')]"
                         }
                     ]
                 },
@@ -108,7 +95,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2023-03-01",
             "name": "[concat(parameters('virtualMachines_VGUSPRDAPP04_name'), '/Site24x7WindowsServerAgent')]",
             "location": "northcentralus",
             "dependsOn": [
