@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountNamePrefix": {
+            "value": "storageaccountname"
+        },
+        "location": {
+            "value": "central india"
+        },
+        "skuName": {
+            "value": "Standard_LRS"
+        }
+    }
+}
