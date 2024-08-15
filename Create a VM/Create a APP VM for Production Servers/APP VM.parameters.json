@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "extensions_Site24x7WindowsServerAgent_site24x7LicenseKey": {
+            "value": null
+        },
+        "virtualMachines_VGUSPRDAPP04_name": {
+            "value": null
+        },
+        "disks_VGUSPRDAPP04_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e_externalid": {
+            "value": null
+        },
+        "disks_VGUSPRDAPP04_DataDisk_0_externalid": {
+            "value": null
+        },
+        "networkInterfaces_vgusprdapp04811_externalid": {
+            "value": null
+        }
+    }
+}
