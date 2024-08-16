@@ -1,0 +1,108 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "northcentralus"
+        },
+        "networkInterfaceName": {
+            "value": "vgusdevapp04563"
+        },
+        "enableAcceleratedNetworking": {
+            "value": true
+        },
+        "networkSecurityGroupId": {
+            "value": "/subscriptions/7ff5afd6-ada4-404d-ba66-a4a69bab801e/resourceGroups/VG-US-RSG/providers/Microsoft.Network/networkSecurityGroups/VGUSDEVFENSG"
+        },
+        "subnetName": {
+            "value": "DEVAPP-US-SUBNET"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/7ff5afd6-ada4-404d-ba66-a4a69bab801e/resourceGroups/VG-US-RSG/providers/Microsoft.Network/virtualNetworks/VG-US-DEV-vNET-New"
+        },
+        "publicIpAddressName": {
+            "value": "VGUSDEVAPP04-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Static"
+        },
+        "publicIpAddressSku": {
+            "value": "Standard"
+        },
+        "pipDeleteOption": {
+            "value": "Detach"
+        },
+        "virtualMachineName": {
+            "value": "VGUSDEVAPP04"
+        },
+        "virtualMachineComputerName": {
+            "value": "VGUSDEVAPP04"
+        },
+        "virtualMachineRG": {
+            "value": "VG-US-RSG"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "createOption": "attach",
+                    "deleteOption": "Detach",
+                    "caching": "ReadOnly",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "name": "VGUSDEVAPP04_DataDisk_0",
+                    "storageAccountType": null,
+                    "diskSizeGB": null,
+                    "diskEncryptionSet": null
+                }
+            ]
+        },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "name": "VGUSDEVAPP04_DataDisk_0",
+                    "sku": "StandardSSD_LRS",
+                    "properties": {
+                        "diskSizeGB": 50,
+                        "creationData": {
+                            "createOption": "empty"
+                        }
+                    }
+                }
+            ]
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D4s_v3"
+        },
+        "nicDeleteOption": {
+            "value": "Detach"
+        },
+        "hibernationEnabled": {
+            "value": false
+        },
+        "adminUsername": {
+            "value": "vgadmin"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "patchMode": {
+            "value": "Manual"
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "diagnosticsStorageAccountName": {
+            "value": "expvmlogmanagement"
+        },
+        "diagnosticsStorageAccountId": {
+            "value": "/subscriptions/7ff5afd6-ada4-404d-ba66-a4a69bab801e/resourceGroups/VG-US-RSG/providers/Microsoft.Storage/storageAccounts/expvmlogmanagement"
+        }
+    }
+}
