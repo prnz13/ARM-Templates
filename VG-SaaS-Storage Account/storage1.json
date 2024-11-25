@@ -45,11 +45,12 @@
       "properties": {
         "accessTier": "Hot",
         "networkRuleSet": {
-          "defaultAction": "Deny",
+          "defaultAction": "Deny", // Deny public access
           "bypass": "None",
-          "virtualNetworkRules": [],
-          "ipRules": []
-        }
+          "virtualNetworkRules": [], // No public access via VNet
+          "ipRules": [] // No public access via IP
+        },
+        "publicNetworkAccess": "Disabled" // Explicitly disable public access
       },
       "tags": {
         "Name": "[parameters('storageAccountName')]"
