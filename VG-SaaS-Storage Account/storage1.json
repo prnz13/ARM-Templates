@@ -11,9 +11,9 @@
     "location": {
       "type": "string",
       "allowedValues": [
-        "North Central US",
-        "Central India",
-        "West Europe"
+        "northcentralus",
+        "centralindia",
+        "westeurope"
       ],
       "metadata": {
         "description": "Location for the storage account"
@@ -44,7 +44,7 @@
       "kind": "StorageV2",
       "properties": {
         "accessTier": "Hot",
-        "networkAcls": {
+        "networkRuleSet": {
           "defaultAction": "Deny",
           "bypass": "None",
           "virtualNetworkRules": [],
@@ -60,6 +60,9 @@
       "apiVersion": "2021-08-01",
       "name": "[concat(parameters('storageAccountName'), 'PEP')]",
       "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+      ],
       "properties": {
         "subnet": {
           "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
@@ -70,7 +73,7 @@
             "properties": {
               "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
               "groupIds": [
-                "file"
+                "blob"
               ]
             }
           }
