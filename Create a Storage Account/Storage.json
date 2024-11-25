@@ -23,14 +23,23 @@
             "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2023-04-01",
-            "tags": {
-                "NAME": "[parameters('storageAccountName')]"
-            },
             "location": "[resourceGroup().location]",
-            "kind": "StorageV2",
             "sku": {
-                "name": "[parameters('skuName')]",
-                "tier": "Standard"
+                "name": "[parameters('skuName')]"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "accessTier": "Hot",
+                "networkRuleSet": {
+                    "defaultAction": "Deny",
+                    "bypass": "None",
+                    "virtualNetworkRules": [],
+                    "ipRules": []
+                },
+                "publicNetworkAccess": "Disabled"
+            },
+            "tags": {
+                "Name": "[parameters('storageAccountName')]"
             }
         }
     ],
