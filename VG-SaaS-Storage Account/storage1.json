@@ -19,16 +19,16 @@
         "description": "Location for the storage account"
       }
     },
-    "vnetName for PEP": {
+    "vnetName": {
       "type": "string",
       "metadata": {
-        "description": "Name of the Virtual Network"
+        "description": "Name of the Virtual Network for PEP" 
       }
     },
-    "subnetName for PEP": {
+    "subnetName": {
       "type": "string",
       "metadata": {
-        "description": "Name of the Subnet"
+        "description": "Name of the Subnet for PEP"
       }
     }
   },
