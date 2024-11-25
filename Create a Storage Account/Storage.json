@@ -14,6 +14,25 @@
             "metadata": {
                 "description": "The SKU name for the storage account."
             }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "The location for the resources."
+            }
+        },
+        "vnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the virtual network."
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the subnet where the private endpoint will be created."
+            }
         }
     },
     "functions": [],
@@ -23,7 +42,7 @@
             "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2023-04-01",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('skuName')]"
             },
@@ -43,30 +62,30 @@
             }
         },
         {
-      "type": "Microsoft.Network/privateEndpoints",
-      "apiVersion": "2021-08-01",
-      "name": "[concat(parameters('storageAccountName'), 'PEP')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
-      ],
-      "properties": {
-        "subnet": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
-        },
-        "privateLinkServiceConnections": [
-          {
-            "name": "storageAccountLink",
+            "name": "[concat(parameters('storageAccountName'), 'PEP')]",
+            "type": "Microsoft.Network/privateEndpoints",
+            "apiVersion": "2021-08-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+            ],
             "properties": {
-              "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
-              "groupIds": [
-                "blob"
-              ]
+                "subnet": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnetName'))]"
+                },
+                "privateLinkServiceConnections": [
+                    {
+                        "name": "storageAccountLink",
+                        "properties": {
+                            "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+                            "groupIds": [
+                                "blob"
+                            ]
+                        }
+                    }
+                ]
             }
-          }
-        ]
-      }
-    }
+        }
     ],
     "outputs": {}
 }
