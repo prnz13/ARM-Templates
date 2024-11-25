@@ -8,6 +8,9 @@
         "skuName": {
             "value": "Standard_LRS"
         },
+        "location": {
+            "value": ""
+        },
         "vnetName": {
             "value": ""
         },
