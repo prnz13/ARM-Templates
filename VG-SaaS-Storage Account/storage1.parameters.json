@@ -8,10 +8,10 @@
         "location": {
             "value": ""
         },
-        "vnetName": {
+        "vnetName for PEP": {
             "value": ""
         },
-        "subnetName": {
+        "subnetName for PEP": {
             "value": ""
         }
     }
