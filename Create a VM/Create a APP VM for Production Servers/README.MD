@@ -1,3 +1,4 @@
 ## Deploy to Azure
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fprnz13%2FARM-Templates%2Fmain%2FCreate%2520a%2520VM%2FCreate%2520a%2520APP%2520VM%2520for%2520Production%2520Servers%2Fappvm.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fprnz13%2FARM-Templates%2Fmain%2FCreate%20a%20VM%2FCreate%20a%20APP%20VM%20for%20Production%20Servers%2Fappvm.json)
+
