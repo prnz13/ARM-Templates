@@ -4,9 +4,7 @@ on:
 
 jobs:
   Hello_SaaS-GitHub-Actions:
-    runs-on:
-        group:
-          vgpf-large-runners-platform
+    runs-on: ubuntu-latest
           
     steps: 
      - name: print Hello SaaS
