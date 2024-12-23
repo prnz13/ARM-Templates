@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print a Message
-        run: echo "Starting the email workflow."
-
       - name: Send an Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -21,7 +18,4 @@ jobs:
           body: "Hello SaaS Team! Welcome to NGP."
           from: ${{ secrets.MAIL_ADDRESS_PRINCE }}
           to: prince.chithersingh@valgenesis.com
-          # Optional: Set content type to HTML or plain text (default: text/plain)
           content_type: text/plain
-          # Optional: Attach a file (ensure the file exists in the repository)
-          attachments: README.md
