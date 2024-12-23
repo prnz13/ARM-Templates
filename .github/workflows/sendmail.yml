@@ -1,30 +1,30 @@
 name: sendmail
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-  Hello_SaaS-GitHub-Actions:
+  Hello_SaaS_GitHub_Actions:
     runs-on: ubuntu-latest
-          
-    steps: 
-     - name: print Hello SaaS
-       run: echo "hello SaaS"
 
-     - name: Sending a email
-       if: always()
-       uses: devellany/send-mailer@v1.0.2
-       with:
-         host: smtp.office365.com
-         # Optional port (defaults to 465)
-         port: 587
-         account: ${{secrets.MAIL_ADDRESS_PRINCE}}
-         password: ${{secrets.MAIL_PASSWORD}}
-         sender: devellany
-         from: ${{secrets.MAIL_ADDRESS_PRINCE}}
-         to: prince.chithersingh@valgenesis.com
-         subject: Test SaaS
-         body: Hello SaaS Team! Welcome to NGP.
-         # Optional content type (defaults to text/plain)
-         contentType: text/plain
-         # Optional attachment files (JSON type. require property 'path')
-         attachments: '[{"path":"README.md"}]'
+    steps:
+      - name: Print Hello SaaS
+        run: echo "Hello SaaS"
+
+      - name: Sending an Email
+        if: always()
+        uses: devellany/send-mailer@v1.0.2
+        with:
+          host: smtp.office365.com
+          # Optional port (defaults to 465)
+          port: 587
+          account: ${{ secrets.MAIL_ADDRESS_PRINCE }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          sender: devellany
+          from: ${{ secrets.MAIL_ADDRESS_PRINCE }}
+          to: prince.chithersingh@valgenesis.com
+          subject: Test SaaS
+          body: Hello SaaS Team! Welcome to NGP.
+          # Optional content type (defaults to text/plain)
+          contentType: text/plain
+          # Optional attachment files (JSON type, requires property 'path')
+          attachments: '[{"path":"README.md"}]'
