@@ -1,48 +1,48 @@
 name: sendmail
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-  Hello_SaaS-GitHub-Actions:
+  Hello_SaaS_GitHub_Actions:
     runs-on: ubuntu-latest
-          
-    steps: 
-     - name: print Hello SaaS
-       run: echo "hello SaaS"
 
-     - name: Sending a email
-       if: always()
-       uses: betterfor/action-sned-mail@main
-       with:
-         # Reqired mail server address 
-         server_address: smtp.office365.com
-         # Optional Server port, default 25 (if server_port is 465 this connection use TLS)
-         server_port: 587
-         # Optional (recommended): mail server username
-         username: ${{secrets.MAIL_ADDRESS_PRINCE}}
-         # Optional (recommended): mail server password
-         password: ${{secrets.MAIL_PASSWORD}}
-         # Required mail subject
-         subject: Github Actions job results
-         # Required recipients address
-         to: prince.chithersingh@valgenesis.com
-         # Required sender full name (address can be skipped)
-         from: prince.chithersingh@valgenesis.com
-         # Optional plain body
-         body: Build job of ${{github.repository}} test completed successfully!
-         # Optional HTML body read from file
-         html_body: file://README.md
-         # Optional carbon copy recipients
-         #cc: a@example.com,b@example.com
-         # Optional blind carbon copy recipients
-         #bcc: c@example.com,d@example.com
-         # Optional recipient of the email response
-         #reply_to: luke@example.com
-         # Optional Message ID this message is replying to
-         #in_reply_to: <random-luke@example.com>
-         # Optional converting Markdown to HTML (set content_type to text/html too)
-         convert_mardown: true
-         # Optional attachments
-         attachments: README.md
-         # Optional priority: 'high', 'normal' (default) or 'low'
-         priority: low
+    steps:
+      - name: Print Hello SaaS
+        run: echo "Hello SaaS"
+
+      - name: Sending an Email
+        if: always()
+        uses: betterfor/action-send-mail@main
+        with:
+          # Required mail server address
+          server_address: smtp.office365.com
+          # Optional server port, defaults to 25 (TLS used if server_port is 465)
+          server_port: 587
+          # Optional (recommended): mail server username
+          username: ${{ secrets.MAIL_ADDRESS_PRINCE }}
+          # Optional (recommended): mail server password
+          password: ${{ secrets.MAIL_PASSWORD }}
+          # Required mail subject
+          subject: GitHub Actions job results
+          # Required recipient's address
+          to: prince.chithersingh@valgenesis.com
+          # Required sender full name or email address
+          from: prince.chithersingh@valgenesis.com
+          # Optional plain body
+          body: Build job of ${{ github.repository }} completed successfully!
+          # Optional HTML body read from file
+          html_body: file://README.md
+          # Optional carbon copy recipients
+          # cc: a@example.com,b@example.com
+          # Optional blind carbon copy recipients
+          # bcc: c@example.com,d@example.com
+          # Optional recipient for the email response
+          # reply_to: luke@example.com
+          # Optional Message ID this message is replying to
+          # in_reply_to: <random-luke@example.com>
+          # Optional: convert Markdown to HTML (set content_type to text/html too)
+          convert_markdown: true
+          # Optional attachments
+          attachments: README.md
+          # Optional priority: 'high', 'normal' (default), or 'low'
+          priority: low

@@ -1,19 +1,19 @@
-name: Run Hello_SaaS from py Script
+name: Run Hello_SaaS from Python Script
 on:
   workflow_dispatch:
-    
+
 jobs:
-  Hello_SaaS-GitHub-Actions:
+  Hello_SaaS_GitHub_Actions:
     runs-on: ubuntu-latest
 
-    steps: 
-        - name: clone repo
-          uses: actions/checkout@v4
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
 
-        - name: setup phython
-          uses: actions/setup-phython@v5
-          with: 
-            python-version: '3.13'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # Corrected Python version to a valid release
 
-        - name: run a python script
-          run: python hello.py
+      - name: Run Python Script
+        run: python hello.py

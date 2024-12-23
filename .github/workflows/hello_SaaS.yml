@@ -1,58 +1,59 @@
 name: Hello SaaS
 
 on:
-    workflow_dispatch:            
+  workflow_dispatch:
+
 jobs:
-    Hello_SaaS-GitHub-Actions:
-        runs-on: ubuntu-latest
+  Hello_SaaS_GitHub_Actions:
+    runs-on: ubuntu-latest
 
-        steps: 
-            # Step to print a greeting
-            - name: Print Hello SaaS Team
-              run: echo "Hello, SaaS Team"
+    steps:
+      # Step to print a greeting
+      - name: Print Hello SaaS Team
+        run: echo "Hello, SaaS Team"
 
-            # Step to run a custom script
-            - name: Run a custom script
-              run: |
-                echo "This is a custom script"
-                mkdir -p SaaS1_Demo_Directory
-                echo "script executed successfully"
-                continue-on-error: false
-                id: Custom-scripts
+      # Step to run a custom script
+      - name: Run a custom script
+        id: custom_scripts
+        continue-on-error: false
+        run: |
+          echo "This is a custom script"
+          mkdir -p SaaS1_Demo_Directory
+          echo "script executed successfully"
 
-            # Step to install Nginx
-            - name: Install Nginx
-              run: |
-                echo "Installing Nginx..."
-                sudo apt-get update
-                sudo apt-get install -y nginx
-                echo "Nginx installed successfully."
-                continue-on-error: false
-                id: install-Nginx
+      # Step to install Nginx
+      - name: Install Nginx
+        id: install_nginx
+        continue-on-error: false
+        run: |
+          echo "Installing Nginx..."
+          sudo apt-get update
+          sudo apt-get install -y nginx
+          echo "Nginx installed successfully."
 
-            # Step to start Nginx and verify installation
-            - name: Start Nginx and Check Status
-              run: |
-                echo "Starting Nginx..."
-                sudo systemctl start nginx
-                sudo systemctl status nginx
-                echo "Nginx is running."
-                continue-on-error: false
+      # Step to start Nginx and verify installation
+      - name: Start Nginx and Check Status
+        continue-on-error: false
+        run: |
+          echo "Starting Nginx..."
+          sudo systemctl start nginx
+          sudo systemctl status nginx
+          echo "Nginx is running."
 
-            #success or failure message
-            - name: Check Success or failure message
-              if: always()
-              run: |
-               if [ ${{steps.custom-scripts.outcome}} == 'success']; then
-                  echo "Script executed successfully!"
-                else
-                  echo "Failed to execute the script"
-                  exit 1
-                fi
+      # Success or failure message
+      - name: Check Success or Failure Message
+        if: always()
+        run: |
+          if [[ "${{ steps.custom_scripts.outcome }}" == "success" ]]; then
+            echo "Script executed successfully!"
+          else
+            echo "Failed to execute the script"
+            exit 1
+          fi
 
-               if [ ${{steps.install-Nginx.outcome}} == 'success']; then
-                echo "Nginx installed successfully!"
-               else
-                echo "Failed to install the Nginx"
-                exit 1
-               fi
+          if [[ "${{ steps.install_nginx.outcome }}" == "success" ]]; then
+            echo "Nginx installed successfully!"
+          else
+            echo "Failed to install Nginx"
+            exit 1
+          fi
