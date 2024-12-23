@@ -1,27 +1,27 @@
-name: sendmailer
+name: Send Email Workflow
 on:
   workflow_dispatch:
 
 jobs:
-  Hello_SaaS_GitHub_Actions:
+  Send_Email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Hello SaaS
-        run: echo "Hello SaaS"
+      - name: Print a Message
+        run: echo "Starting the email workflow."
 
-      - name: Send Email
-        uses: hilarion5/send-mail@v1
+      - name: Send an Email
+        uses: dawidd6/action-send-mail@v3
         with:
-          smtp-server: smtp.office365.com
-          smtp-port: 587
-          smtp-secure: true
-          from-email: ${{ secrets.MAIL_ADDRESS_PRINCE }}
-          to-email: prince.chithersingh@valgenesis.com
+          server_address: smtp.office365.com
+          server_port: 587
           username: ${{ secrets.MAIL_ADDRESS_PRINCE }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: Test Email
-          body: This is a test email sent from GitHub Actions.
-          html: |
-           <h1>This is a test email</h1>
-           <p>We are going to perform monthly maintenance activity on Saturday  (21st Dec 2024) in our Chennai, Colocation, Azure Datacenter from 10 AM to 5 PM IST.</p>
+          subject: "Test SaaS Email"
+          body: "Hello SaaS Team! Welcome to NGP."
+          from: ${{ secrets.MAIL_ADDRESS_PRINCE }}
+          to: prince.chithersingh@valgenesis.com
+          # Optional: Set content type to HTML or plain text (default: text/plain)
+          content_type: text/plain
+          # Optional: Attach a file (ensure the file exists in the repository)
+          attachments: README.md
