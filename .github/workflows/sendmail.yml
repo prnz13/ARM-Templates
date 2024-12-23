@@ -1,4 +1,4 @@
-name: sendmail
+name: sendmailer
 on:
   workflow_dispatch:
 
