@@ -1,0 +1,21 @@
+name: Run Hello_SaaS from py Script
+on:
+  workflow_dispatch:
+    
+jobs:
+  Hello_SaaS-GitHub-Actions:
+    runs-on:
+      group:
+        vgpf-large-runners-platform
+
+    steps: 
+        - name: clone repo
+          uses: actions/checkout@v4
+
+        - name: setup phython
+          uses: actions/setup-phython@v5
+          with: 
+            python-version: '3.13'
+
+        - name: run a python script
+          run: python hello.py
