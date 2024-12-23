@@ -1,18 +1,11 @@
 name: Hello SaaS
 
 on:
-    workflow_dispatch:
-     inputs:
-       name: 
-         type: string
-         default: Nemo
-         required: True
-         description: "Name of the person to greet"
-            
+    workflow_dispatch:            
 jobs:
     Hello_SaaS-GitHub-Actions:
         runs-on: ubuntu-latest
-        
+
         steps: 
             # Step to print a greeting
             - name: Print Hello SaaS Team
