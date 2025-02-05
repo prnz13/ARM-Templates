@@ -6,7 +6,7 @@
             "value": "yourStorageAccountName"
         },
         "skuName": {
-            "value": ""
+            "value": "Standard_LRS"
         },
         "location": {
             "value": ""
