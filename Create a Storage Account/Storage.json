@@ -10,7 +10,6 @@
         },
         "skuName": {
             "type": "string",
-            "defaultValue": "",
             "allowedValues": [
                 "Standard_LRS",
                 "Standard_GRS",
