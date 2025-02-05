@@ -1,3 +1,5 @@
+working ARM templates for azure storage account
+
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -11,16 +13,6 @@
         "skuName": {
             "type": "string",
             "defaultValue": "Standard_LRS",
-            "allowedValues": [
-                "Standard_LRS",
-                "Standard_GRS",
-                "Standard_RAGRS",
-                "Standard_ZRS",
-                "Premium_LRS",
-                "Premium_ZRS",
-                "Standard_GZRS",
-                "Standard_RAGZRS"
-            ],
             "metadata": {
                 "description": "The SKU name for the storage account."
             }
@@ -28,14 +20,6 @@
         "location": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
-            "allowedValues": [
-                "northcentralus",
-                "southcentralus",
-                "northeurope",
-                "westeurope",
-                "centralindia",
-                "southindia",
-            ],
             "metadata": {
                 "description": "The location for the resources."
             }
