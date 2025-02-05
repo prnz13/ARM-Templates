@@ -1,118 +1,158 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "extensions_Site24x7WindowsServerAgent_site24x7LicenseKey": {
-            "type": "SecureString"
-        },
-        "virtualMachines_VGUSPRDAPP04_name": {
-            "defaultValue": "VGUSPRDAPP04",
-            "type": "String"
-        },
-        "disks_VGUSPRDAPP04_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e_externalid": {
-            "defaultValue": "/subscriptions/59a33797-e4da-4240-a1df-144860da2d75/resourceGroups/VG-US-RSG/providers/Microsoft.Compute/disks/VGUSPRDAPP04_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e",
-            "type": "String"
-        },
-        "disks_VGUSPRDAPP04_DataDisk_0_externalid": {
-            "defaultValue": "/subscriptions/59a33797-e4da-4240-a1df-144860da2d75/resourceGroups/VG-US-RSG/providers/Microsoft.Compute/disks/VGUSPRDAPP04_DataDisk_0",
-            "type": "String"
-        },
-        "networkInterfaces_vgusprdapp04811_externalid": {
-            "defaultValue": "/subscriptions/59a33797-e4da-4240-a1df-144860da2d75/resourceGroups/VG-US-RSG/providers/Microsoft.Network/networkInterfaces/vgusprdapp04811",
-            "type": "String"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmName": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter the name of the Virtual Machine."
+      }
     },
-    "variables": {},
-    "resources": [
-        {
-            "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2023-03-01",
-            "name": "[parameters('virtualMachines_VGUSPRDAPP04_name')]",
-            "location": "northcentralus",
-            "tags": {
-                "Maintenance": "PRD"
-            },
+    "adminUsername": {
+      "type": "string",
+      "defaultValue": "vgadmin",
+      "metadata": {
+        "description": "Admin username for the Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Admin password for the Virtual Machine."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D4s_v3",
+      "metadata": {
+        "description": "Select the size of the Virtual Machine."
+      }
+    },
+    "vnetId": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter the resource ID of the Virtual Network."
+      }
+    },
+    "subnetId": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter the resource ID of the Subnet."
+      }
+    },
+    "storageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Select the Storage Account for Boot Diagnostics."
+      }
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "publicIpName": "[concat(parameters('vmName'), '-pip')]",
+    "nicName": "[concat(parameters('vmName'), 'nic')]",
+    "dataDiskName": "[concat(parameters('vmName'), '-datadisk0')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2021-08-01",
+      "name": "[variables('nicName')]",
+      "location": "[variables('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
             "properties": {
-                "hardwareProfile": {
-                    "vmSize": "Standard_D16s_v3"
-                },
-                "storageProfile": {
-                    "imageReference": {
-                        "publisher": "MicrosoftWindowsServer",
-                        "offer": "WindowsServer",
-                        "sku": "2019-Datacenter",
-                        "version": "latest"
-                    },
-                    "osDisk": {
-                        "osType": "Windows",
-                        "name": "[concat(parameters('virtualMachines_VGUSPRDAPP04_name'), '_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e')]",
-                        "createOption": "Attach",
-                        "caching": "ReadWrite",
-                        "managedDisk": {
-                            "storageAccountType": "StandardSSD_LRS",
-                            "id": "[parameters('disks_VGUSPRDAPP04_OsDisk_1_efd21a1196084fedbfd95aa0fe967e4e_externalid')]"
-                        }
-                    },
-                    "dataDisks": [
-                        {
-                            "lun": 0,
-                            "name": "[concat(parameters('virtualMachines_VGUSPRDAPP04_name'), '_DataDisk_0')]",
-                            "createOption": "Attach",
-                            "caching": "ReadWrite",
-                            "managedDisk": {
-                                "storageAccountType": "StandardSSD_LRS",
-                                "id": "[parameters('disks_VGUSPRDAPP04_DataDisk_0_externalid')]"
-                            }
-                        }
-                    ]
-                },
-                "osProfile": {
-                    "computerName": "[parameters('virtualMachines_VGUSPRDAPP04_name')]",
-                    "adminUsername": "vgadmin",
-                    "windowsConfiguration": {
-                        "provisionVMAgent": true,
-                        "enableAutomaticUpdates": true,
-                        "patchSettings": {
-                            "patchMode": "AutomaticByOS",
-                            "assessmentMode": "AutomaticByPlatform",
-                            "enableHotpatching": false
-                        }
-                    }
-                },
-                "networkProfile": {
-                    "networkInterfaces": [
-                        {
-                            "id": "[parameters('networkInterfaces_vgusprdapp04811_externalid')]"
-                        }
-                    ]
-                },
-                "diagnosticsProfile": {
-                    "bootDiagnostics": {
-                        "enabled": true
-                    }
-                }
+              "subnet": {
+                "id": "[parameters('subnetId')]"
+              },
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpName'))]"
+              }
             }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2021-07-01",
+      "name": "[parameters('vmName')]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSize')]"
         },
-        {
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2023-03-01",
-            "name": "[concat(parameters('virtualMachines_VGUSPRDAPP04_name'), '/Site24x7WindowsServerAgent')]",
-            "location": "northcentralus",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_VGUSPRDAPP04_name'))]"
-            ],
-            "properties": {
-                "autoUpgradeMinorVersion": true,
-                "publisher": "Site24x7",
-                "type": "Site24x7WindowsServerExtn",
-                "typeHandlerVersion": "1.0",
-                "settings": {
-                    "site24x7AgentType": "azurevmextnwindowsserver"
-                },
-                "protectedSettings": {
-                    "site24x7LicenseKey": "[parameters('extensions_Site24x7WindowsServerAgent_site24x7LicenseKey')]"
-                }
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2022-Datacenter-smalldisk-g2",
+            "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "StandardSSD_LRS"
             }
-        }
-    ]
+          },
+          "dataDisks": [
+            {
+              "lun": 0,
+              "name": "[variables('dataDiskName')]",
+              "createOption": "Empty",
+              "diskSizeGB": 50,
+              "managedDisk": {
+                "storageAccountType": "StandardSSD_LRS"
+              },
+              "caching": "ReadWrite"
+            }
+          ]
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]",
+          "windowsConfiguration": {
+            "enableAutomaticUpdates": false,
+            "provisionVMAgent": true,
+            "patchSettings": {
+              "patchMode": "Manual"
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/')]"
+          }
+        },
+        "licenseType": "Windows_Server"
+      },
+      "tags": {
+        "name": "[parameters('vmName')]"
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2021-08-01",
+      "name": "[variables('publicIpName')]",
+      "location": "[variables('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    }
+  ]
 }
