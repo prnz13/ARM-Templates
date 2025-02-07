@@ -1,28 +1,21 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "vmName": {
-      "value": ""
-    },
-    "adminUsername": {
-      "value": "vgadmin"
-    },
-    "adminPassword": {
-      "value": ""
-    },
-    "vmSize": {
-      "value": "Standard_D4s_v3"
-    },
-    "vnetName": {
-      "value": ""
-    },
-    "subnetName": {
-      "value": ""
-    },
-    "storageAccountName": {
-      "value": ""
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "vmName": {
+        "value": "<VM_NAME>"
+      },
+      "adminPassword": {
+        "value": "<ADMIN_PASSWORD>"
+      },
+      "vnetId": {
+        "value": "<VNET_RESOURCE_ID>"
+      },
+      "subnetId": {
+        "value": "<SUBNET_RESOURCE_ID>"
+      },
+      "storageAccountName": {
+        "value": "<STORAGE_ACCOUNT_NAME>"
+      }
     }
   }
-}
-
