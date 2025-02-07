@@ -28,16 +28,16 @@
         "description": "Select the size of the Virtual Machine."
       }
     },
-    "vnetId": {
+    "vnetName": {
       "type": "string",
       "metadata": {
-        "description": "Enter the resource ID of the Virtual Network."
+        "description": "Enter the name of the Virtual Network."
       }
     },
-    "subnetId": {
+    "subnetName": {
       "type": "string",
       "metadata": {
-        "description": "Enter the resource ID of the Subnet."
+        "description": "Enter the name of the Subnet."
       }
     },
     "storageAccountName": {
@@ -49,8 +49,10 @@
   },
   "variables": {
     "location": "[resourceGroup().location]",
-    "nicName": "[concat(parameters('vmName'), '-nic')]",  // Updated NIC name to include a hyphen
-    "dataDiskName": "[concat(parameters('vmName'), '-datadisk0')]"
+    "nicName": "[concat(parameters('vmName'), '-nic')]",
+    "dataDiskName": "[concat(parameters('vmName'), '-datadisk0')]",
+    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+    "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
   },
   "resources": [
     {
@@ -58,15 +60,18 @@
       "apiVersion": "2021-08-01",
       "name": "[variables('nicName')]",
       "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+      ],
       "properties": {
         "ipConfigurations": [
           {
             "name": "ipconfig1",
             "properties": {
               "subnet": {
-                "id": "[parameters('subnetId')]"
+                "id": "[variables('subnetId')]"
               },
-              "privateIPAllocationMethod": "Dynamic"  // Removed publicIPAddress property
+              "privateIPAllocationMethod": "Dynamic"
             }
           }
         ]
